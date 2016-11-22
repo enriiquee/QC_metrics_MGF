@@ -4,10 +4,6 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ```{r}
 # PRIDE Cluster clusters all MS/MS spectra submitted to PRIDE Archive repository release: 2015-04
 # http://www.ebi.ac.uk/pride/cluster/
@@ -23,6 +19,7 @@ packages <- c( "ggplot2", "scales", "knitr", "markdown", "tidyr", "rmarkdown","g
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
     install.packages(setdiff(packages, rownames(installed.packages())))  }
 
+install.packages('knitr')
  library("ggplot2"); library("scales"); library("knitr"); library("markdown"); 
 library("tidyr"); library("rmarkdown"); library("gridExtra"); library("stringr"); library("data.table")
 ```
@@ -298,5 +295,3 @@ kable(taxonomy_ide, row.names = FALSE, padding = 0)
 kable(taxonomy_unide, row.names = FALSE, padding = 0)
 
 ```
-
-
