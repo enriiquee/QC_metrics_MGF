@@ -1,4 +1,3 @@
-
 # PRIDE Cluster clusters all MS/MS spectra submitted to PRIDE Archive repository release: 2015-04
 # http://www.ebi.ac.uk/pride/cluster/
 
@@ -13,7 +12,7 @@ packages <- c( "ggplot2", "scales", "knitr", "markdown", "tidyr", "rmarkdown","g
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
     install.packages(setdiff(packages, rownames(installed.packages())))  }
 
- library("ggplot2"); library("scales"); library("knitr"); library("markdown"); 
+library("ggplot2"); library("scales"); library("knitr"); library("markdown"); 
 library("tidyr"); library("rmarkdown"); library("gridExtra")
 
 
@@ -96,7 +95,4 @@ ggplot(transform(transform(df_without_data , Spectra=Spectra/sum(Spectra)), labP
     geom_bar(width = 1, stat = "identity") +
     coord_polar(theta = "y") +
     geom_text(aes(y=labPos, label=scales::percent(Spectra)), size=7)
-
-
-
 
