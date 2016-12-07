@@ -10,23 +10,23 @@ packages <- c( "ggplot2", "scales", "knitr", "markdown", "tidyr", "rmarkdown","g
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
     install.packages(setdiff(packages, rownames(installed.packages())))  }
 
-install.packages('knitr')
+
 library("ggplot2"); library("scales"); library("knitr"); library("markdown"); 
 library("tidyr"); library("rmarkdown"); library("gridExtra"); library("stringr"); library("data.table")
  
 ### **Files**
 #REPLACE RELEASE 2 WITH THE PATH OF THE NEW RELEASE
-release1_iden <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_identified_2016-10"
-release1_unid <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_unidentified_2016-10"
-
-release2_iden <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_identified_2016-10"
-release2_unid <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_unidentified_2016-10"
-
-# release1_iden <- "~/Dropbox/Script_R_Cambridge/Script2/archive_identified_2016-10"
-# release1_unid <- "~/Dropbox/Script_R_Cambridge/Script2/archive_unidentified_2016-10"
+# release1_iden <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_identified_2016-10"
+# release1_unid <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_unidentified_2016-10"
 # 
-# release2_iden <- "~/Dropbox/Script_R_Cambridge/Script2/archive_identified_2016-10"
-# release2_unid <- "~/Dropbox/Script_R_Cambridge/Script2/archive_unidentified_2016-10"
+# release2_iden <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_identified_2016-10"
+# release2_unid <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_unidentified_2016-10"
+
+release1_iden <- "~/Dropbox/Script_R_Cambridge/Script2/archive_identified_2016-10"
+release1_unid <- "~/Dropbox/Script_R_Cambridge/Script2/archive_unidentified_2016-10"
+
+release2_iden <- "~/Dropbox/Script_R_Cambridge/Script2/archive_identified_2016-10"
+release2_unid <- "~/Dropbox/Script_R_Cambridge/Script2/archive_unidentified_2016-10"
 
 
 #Count files how many files are in the folder. 
@@ -44,14 +44,14 @@ df.test <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((
 
 df.test2 <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(file_iden2)+length(file_unide2)), length(file_iden2),length(file_unide2)))
 
+cat("\nNumber of files in Release 1")
 kable(df.test, padding = 0)
+cat("\nNumber of files in Release 2")
 kable(df.test2, padding = 0)
 
 df.id_and_uni <- data.frame(Types = c("Identify", "Unidentify"), Spectra= c(length(file_iden),length(file_unide)) )
 df.id_and_uni2 <- data.frame(Types = c("Identify", "Unidentify"), Spectra= c(length(file_iden2),length(file_unide2)) )
  
-
-
 #Create the pie chart
 
 a <- ggplot(transform(transform(df.id_and_uni, Spectra=Spectra/sum(Spectra)), labPos=cumsum(Spectra)-Spectra/2), 
@@ -70,13 +70,7 @@ b <- ggplot(transform(transform(df.id_and_uni2, Spectra=Spectra/sum(Spectra)), l
 
 grid.arrange(a, b, ncol=2)
  
-
-
-# create a list of files in the current working directory. CHANGE PATH
-#setwd("~/Dropbox/Script_R_Cambridge/Script2/testall")
-#list_of_all <- file.info(dir())
-#REPLACE RELEASE 2 WITH THE PATH OF THE NEW RELEASE
-
+#Number of files with data. 
 
 setwd(release1_iden)
 list_of_iden <- file.info(dir())
@@ -89,9 +83,8 @@ setwd(release2_unid)
 list_of_unid2 <- file.info(dir())
 
 
-# get the size for each file
-#setwd("~/Dropbox/Script_R_Cambridge/Script2/testall")
-#size_all <- file.info(dir(path = "~/Dropbox/Script_R_Cambridge/Script2/testall"))$size
+# Get the size for each file
+
 setwd(release1_iden)
 size_iden <- file.info(dir(path = release1_iden))$size
 setwd(release1_unid)
@@ -105,7 +98,6 @@ size_uniden2 <- file.info(dir(path = release2_unid))$size
 
 
 # subset the files that have non-zero size
-#all_with_data <-  rownames(list_of_all)[which(size_all != 0)]
 iden_with_data <-  rownames(list_of_iden)[which(size_iden != 0)]
 unid_with_data <-  rownames(list_of_unid)[which(size_uniden != 0)]
 
@@ -126,11 +118,12 @@ unid_without_data2 <-  rownames(list_of_unid2)[which(size_uniden2 == 0)]
 #plot with data.
 
 df_with_data_all <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(iden_with_data)+length(unid_with_data)),length(iden_with_data),length(unid_with_data)) )
-
+cat("\nNumber of files with identify data")
 kable(df_with_data_all, padding = 0)
 
 
 df_with_data_all2 <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(iden_with_data2)+length(unid_with_data2)),length(iden_with_data2),length(unid_with_data2)) )
+cat("\nNumber of files with unidentify data")
 kable(df_with_data_all, padding = 0)
 
 
@@ -156,9 +149,11 @@ grid.arrange(a, b, ncol=2)
 
 #without data. 
 df_without_data_all <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(iden_without_data)+length(unid_without_data)),length(iden_without_data),length(unid_without_data)) )
+cat("\nNumber of files without identify data")
 kable(df_without_data_all,padding = 0)
 
 df_without_data_all2 <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(iden_without_data2)+length(unid_without_data2)),length(iden_without_data2),length(unid_without_data2)) )
+cat("\nNumber of files without unidentify data")
 kable(df_without_data_all2,padding = 0)
 
 
@@ -187,9 +182,10 @@ grid.arrange(a, b, ncol=2)
 
 
 setwd("~/Dropbox/Script_R_Cambridge/Script2/cache")
+#setwd("/nfs/nobackup/pride/cluster-prod/archive_spectra/cache")
 files_to_read <- file.info(dir())
 size <- file.info(dir(path = "~/Dropbox/Script_R_Cambridge/Script2/cache"))$size
-
+#size <- file.info(dir(path = "/nfs/nobackup/pride/cluster-prod/archive_spectra/cache"))$size
 files_to_read <-  rownames(files_to_read)[which(size != 0)]
 
 #Use the list a generate 
@@ -236,15 +232,12 @@ modifications5 <- data.frame(table(modifications4))
 kable(modifications5, row.names = FALSE, padding = 0)
 
 
- 
-
 ### **Sequences identified** 
-
 
 
 sequences <- data.frame(sequences=gsub("SEQ=", "", sequences_ide.txt$V1))
 sequences2 <- data.frame(table(sequences))
-cat("There are",nrow(sequences2), "sequences different.")
+cat("\nThere are",nrow(sequences2), "sequences different.\n")
 cat("The number of sequences is:", sum(sequences2$Freq))
 
  
@@ -262,8 +255,8 @@ spectrum_unid <- data.frame(spectrum_unid=gsub("spectrum=", "", spectrum_unid.tx
 spectrum_unid <- data.frame(spectrum_unid=spectrum_unid[grep("[[:digit:]]", spectrum_unid$spectrum_unid), ])
 
 
-cat("The number of spectrum identified:", sum(as.numeric(spectrum_ide$spectrum_ide)))
-cat("The number of spectrum unidentified:", sum(as.numeric(spectrum_unid$spectrum_unid)))
+cat("\nThe number of spectrum identified:", sum(as.numeric(spectrum_ide$spectrum_ide)))
+cat("\nThe number of spectrum unidentified:", sum(as.numeric(spectrum_unid$spectrum_unid)))
 
  
 
