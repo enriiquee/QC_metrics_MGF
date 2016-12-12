@@ -1,10 +1,14 @@
 #!/bin/bash
 
 #Set working directory
-WORKING_DIRECTORY=`pwd`/cache2
+WORKING_DIRECTORY1=`pwd`/cache
+WORKING_DIRECTORY2=`pwd`/cache2
 
-#Create a working directory
-mkdir -p $WORKING_DIRECTORY
+#Create a working directory for both releases
+mkdir -p $WORKING_DIRECTORY1
+mkdir -p $WORKING_DIRECTORY2
+
+#Spliting data. 
 
 
 
