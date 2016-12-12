@@ -30,13 +30,16 @@ for path_to_hb_file in $( ls archive_unidentified_2016-10/*.mgf ); do
 
  done
 
-# for path_to_hb_file in $( ls archive_all_2016-10/*.mgf ); do
-#     echo $path_to_hb_file
-#     grep 'SEQ' $path_to_hb_file >> $WORKING_DIRECTORY/sequences_all.txt
-#     grep 'TAXONOMY' $path_to_hb_file >> $WORKING_DIRECTORY/taxonomy_all.txt
-#     grep 'USER' $path_to_hb_file >> $WORKING_DIRECTORY/modifications_all.txt
-#     grep 'TITLE' $path_to_hb_file | sed 's/^.*\(spectrum.*\)/\1/g'>> $WORKING_DIRECTORY/spectrum_all.txt
-# done
+
+#Para separar los archivos. 
+
+awk '/^BEGIN IONS/{n++;w=1} n&&w{print > "out" n ".txt"} /^END IONS/{w=0}' PRD000001.mgf 
+
+
+
+
+
+
 
 #Notas: 
 
