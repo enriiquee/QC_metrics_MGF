@@ -46,10 +46,6 @@ release2_unid <- "/nfs/nobackup/pride/cluster-prod/archive_spectra/archive_unide
 # 
 # release2_iden <- "~/Dropbox/Script_R_Cambridge/Script2/archive_identified_2016-10"
 # release2_unid <- "~/Dropbox/Script_R_Cambridge/Script2/archive_unidentified_2016-10"
-
-
-
-
 ```
 
 
@@ -66,7 +62,7 @@ file_iden2 <- list.files(file.path(getwd(), "archive_identified_2016-10"), patte
 file_unide2 <- list.files(file.path(getwd(), "archive_unidentified_2016-10"), pattern = "\\.mgf$")
 
 #Create a data frame with the data obtained: 
-df.test <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(file_iden)+length(file_unide)), length(file_iden),length(file_unide)))
+df.test <- data.frame(Types = c("Total", "Identify", "Unidentify" ), Spectra= c((length(file_iden)+length(file_unide)), length(file_iden),length(file_unide)))
 
 df.test2 <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(file_iden2)+length(file_unide2)), length(file_iden2),length(file_unide2)))
 
@@ -74,6 +70,7 @@ kable(df.test, padding = 0)
 
 
 ```
+
 
 #### **Release 2**
 
@@ -159,6 +156,7 @@ unid_without_data2 <-  rownames(list_of_unid2)[which(size_uniden2 == 0)]
 ```
 
 ### **Files with data**
+
 #### **Release 1**
 
 ```{r, echo=FALSE, results='asis'}
@@ -197,6 +195,7 @@ grid.arrange(a, b, ncol=2)
 ```
 
 ### **Files without data**
+
 #### **Release 1**
 
 ```{r, echo=FALSE}
@@ -205,6 +204,7 @@ df_without_data_all <- data.frame(Types = c("Total", "Identify", "Unidentify"), 
 kable(df_without_data_all,padding = 0)
 
 ```
+
 #### **Release 2**
 
 ```{r, echo=FALSE }
@@ -277,12 +277,14 @@ sequences<-fread(path.expand("/nfs/nobackup/pride/cluster-prod/archive_spectra/c
 colnames(sequences) <- c("Sequences", "Frequency")
 
 ```
+
 #### **Release 1**
 
 ```{r, echo=FALSE}
 cat("There are",nrow(sequences), "sequences different.")
 cat("The number of sequences is:", sum(sequences$Frequency))
 ```
+
 #### **Release 2**
 
 ```{r, echo=FALSE}
@@ -304,6 +306,7 @@ Spectrum <- read.delim("/nfs/nobackup/pride/cluster-prod/archive_spectra/cache/s
  cat("The number of spectrum unidentified is:", Spectrum$V2)
 
 ```
+
 #### **Release 2**
 
 ```{r, echo=FALSE}
@@ -317,7 +320,6 @@ Spectrum <- read.delim("/nfs/nobackup/pride/cluster-prod/archive_spectra/cache/s
  cat("The number of spectrum unidentified is:", Spectrum$V2)
 
 ```
-
 
 ### **Taxonomy** 
 #### **Release 1**
@@ -349,3 +351,28 @@ taxonomy_unide <- cbind(taxonomy_unide[1:(nrow(taxonomy_unide)/2),], taxonomy_id
 kable(taxonomy_unide, row.names = FALSE, padding = 0)
 
 ```
+
+### **Number of peptides**
+
+```{r}
+
+nrow(modifications_ide_table)
+
+#Create a data frame with the data obtained: 
+df.test <- data.frame(Types = c("Total", "Identify", "Unidentify" ), Spectra= c((length(file_iden)+length(file_unide)), length(file_iden),length(file_unide)))
+
+df.test2 <- data.frame(Types = c("Total", "Identify", "Unidentify"), Spectra= c((length(file_iden2)+length(file_unide2)), length(file_iden2),length(file_unide2)))
+
+kable(df.test, padding = 0)
+
+
+
+
+```
+
+
+
+
+
+
+
